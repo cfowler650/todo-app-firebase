@@ -7,11 +7,16 @@ import Home from './src/screens/Home';
 import AddTodo from './src/screens/AddTodo';
 import TodoList from './src/screens/TodoList';
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: Home
+const AppNavigator = createStackNavigator(
+  {
+    Home,
+    AddTodo,
+    TodoList
+  },
+  {
+    initialRouteName: 'Home'
   }
-});
+);
 
 const AppContainer = createAppContainer(AppNavigator);
 
