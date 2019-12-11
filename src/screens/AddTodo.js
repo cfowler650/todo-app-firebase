@@ -22,8 +22,15 @@ export default class AddTodo extends Component {
   };
 
   handleSubmit = () => {
-    addTodo(this.state.name);
-    Alert.alert('Item saved successfully');
+    let notEmpty = this.state.name;
+
+    if (notEmpty) {
+        addTodo(this.state.name);
+        Alert.alert('Todo saved successfully');
+    } else {
+        Alert.alert('Todo can not be empty!');
+    }
+
   };
 
   render() {
@@ -48,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 30,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: '#6565fc'
   },
   title: {
