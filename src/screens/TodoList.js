@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {View, Text, StyleSheet } from 'react-native';
 import TodoComponent from '../components/TodoComponent';
+import DialogInput from 'react-native-dialog-input';
+
 
 import { db } from '../config';
 let todosRef = db.ref('todos/');
 
-
+let match = '';
 export default class TodoList extends Component {
   state = {
-    todos: []
+    todos: [],
+    isDialogVisible: false
   };
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
 
   componentDidMount() {
     todosRef.on('value', snapshot => {
@@ -37,13 +44,32 @@ export default class TodoList extends Component {
   }
 
   edit(todo) {
-    console.log('edit')
+    match = todo
+    this.showDialog(true)
   };
+
+  showDialog(boolean) {
+    this.setState({ isDialogVisible: boolean});
+  }
+
+  sendInput(inputText) {
+    let index = this.state.todos.findIndex(x => x == match);
+    this.state.todos[index].name = inputText;
+    this.forceUpdate();
+    this.showDialog(false);
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        {console.log(this.state.todos)}
+        <DialogInput isDialogVisible={this.state.isDialogVisible}
+          title={"Edit This Todo"}
+          message={"Type Your New Todo Below"}
+          hintInput={"I have todo..."}
+          submitInput={(inputText) => { this.sendInput(inputText) }}
+          closeDialog={() => { this.showDialog(false) }}>
+        </DialogInput>
+
         {this.state.todos.length > 0 ? (
           <TodoComponent todos={this.state.todos} _handleDelete={this.delete.bind(this)} _handleEdit={this.edit.bind(this)}/>
         ) : (
@@ -65,5 +91,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 28,
     fontWeight: 'bold'
+  },
+
+  modal: {
+    height: 50,
+    backgroundColor: 'green'
   }
 });
