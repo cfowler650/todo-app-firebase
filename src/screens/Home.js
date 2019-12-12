@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button, ThemeProvider } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
 export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Todo App</Text>
+        <View style={styles.headerContainer}>
+         <Text style={styles.header}>Todo App</Text>
+        </View>
+
         <Button
           title="New Todo"
           type="solid"
@@ -21,6 +24,7 @@ export default class Home extends Component {
           onPress={()=> this.props.navigation.navigate('TodoList')} />
 
         <Text style={styles.divider}> </Text>
+
       </View>
     );
   }
@@ -28,32 +32,31 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
 
-  text: {
+  headerContainer: {
+    margin: 20,
+    backgroundColor: "#cce5c9",
+  },
 
-    paddingLeft: 10,
-    paddingTop: 20,
-    paddingBottom: 10,
-    backgroundColor: "#f23657",
+  header: {
     fontSize: 25,
-    textAlign: 'left',
-    fontWeight: 'bold'
-
+    textAlign: 'center',
   },
 
   container: {
     flex: 1,
-    backgroundColor: "#f23657",
+    backgroundColor: "#cce5c9",
     justifyContent: "flex-start",
+    paddingLeft: 20,
+    paddingRight: 20
   },
-
-  // divider: {
-  //   height: 600
-  // },
 
   button: {
     backgroundColor: 'teal',
-    margin: 10,
-    marginBottom: 0
+    marginRight: 10,
+    marginLeft: 10,
+    marginTop: 10,
+    marginBottom: 0,
+    borderRadius: 8
   }
 
 })

@@ -52,7 +52,9 @@ export default class AddTodo extends Component {
   render() {
     return (
       <View style={styles.main}>
-        <Text style={styles.title}>Add Todo</Text>
+        <View style={styles.titleContainer}>
+            <Text style={styles.title}>Add Todo</Text>
+        </View>
         <TextInput style={styles.todoInput} onChange={this.handleChange} />
         <TouchableHighlight
           style={styles.button}
@@ -69,25 +71,31 @@ export default class AddTodo extends Component {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    padding: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: 'darkgrey'
+    backgroundColor: '#cce5c9'
   },
   title: {
-    marginBottom: 20,
+
     fontSize: 25,
     textAlign: 'center'
   },
+
+  titleContainer: {
+    margin: 20
+  },
+
   todoInput: {
     height: 50,
     padding: 4,
     marginRight: 5,
     fontSize: 23,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: 'grey',
     borderRadius: 8,
-    color: 'white'
+    color: 'black'
   },
   buttonText: {
     fontSize: 18,

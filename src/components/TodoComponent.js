@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import PropTypes from 'prop-types';
+import { View, Text, StyleSheet } from 'react-native';
+import { Button } from 'react-native-elements';
 
 import { db } from '../config';
-
 
 export default class TodoComponent extends Component {
 
@@ -18,25 +17,18 @@ export default class TodoComponent extends Component {
   render() {
     return (
       <View style={styles.todosList}>
-        <View style={styles.dividerTop}>
-        <Text style={styles.dividerTopText}>My Todos</Text>
+        <View style={styles.headerContainer}>
+         <Text style={styles.header}>My Todos</Text>
         </View>
         {this.props.todos.map((todo, index) => {
           return (
-            // <View key={todo.id}>
-            //   <Text onPress={this.props.handlePress} style={styles.todotext}>{todo.name}</Text>
-            // </View>
-            <>
-
-            <View style={styles.todoContainer} key={todo.index}>
+            <View style={styles.todoContainer} key={index}>
               <Text style={styles.todoText}>{todo.name}</Text>
               <View style={styles.buttonGroup}>
-                <Button title="Edit" onPress={this._handleEdit.bind(this, todo)} />
-                <Button title="Delete" onPress={this._handleDelete.bind(this, todo)} />
+                <Button buttonStyle={styles.editButton} type="outline" title="Edit" onPress={this._handleEdit.bind(this, todo)} />
+                <Button buttonStyle={styles.deleteButton} type="outline" title="Delete" onPress={this._handleDelete.bind(this, todo)} />
               </View>
             </View>
-            <Text style={styles.divider}></Text>
-            </>
           );
         })}
       </View>
@@ -62,9 +54,10 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     padding: 20,
     backgroundColor: "#fff",
-    borderRadius: 20,
+    borderRadius: 16,
     marginRight: 10,
-    marginLeft: 10
+    marginLeft: 10,
+    marginBottom: 5
   },
 
   buttonGroup: {
@@ -72,19 +65,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
 
-  divider: {
-    height: 3
+
+  headerContainer: {
+   justifyContent: 'center',
+   alignItems: 'center',
+   margin: 20
+
   },
 
-  dividerTop: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
+  header: {
+    fontSize: 25,
   },
 
-  dividerTopText: {
-    fontSize: 35,
-    fontWeight: 'bold'
+  editButton: {
+    marginTop: 10,
+    marginRight: 5,
+    width: 150
+  },
+
+  deleteButton: {
+    marginTop: 10,
+    marginLeft: 5,
+    width: 150,
+
   }
 
 });
