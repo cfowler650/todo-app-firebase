@@ -23,8 +23,8 @@ export default class TodoComponent extends Component {
             <View style={styles.todoContainer} key={index}>
               <Text style={styles.todoText}>{todo.name}</Text>
               <View style={styles.buttonGroup}>
-                <Button buttonStyle={styles.editButton} type="outline" title="Edit" onPress={this._handleEdit.bind(this, todo)} />
-                <Button buttonStyle={styles.deleteButton} type="outline" title="Delete" onPress={this._handleDelete.bind(this, todo)} />
+                <Button buttonStyle={styles.editButton} type="solid" title="Edit" onPress={this._handleEdit.bind(this, todo)} />
+                <Button buttonStyle={styles.deleteButton} type="solid" title="Delete" onPress={this._handleDelete.bind(this, todo)} />
               </View>
             </View>
           );
@@ -43,15 +43,16 @@ const styles = StyleSheet.create({
 
   todoText: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
     textAlign: 'center',
-    padding: 5
+    padding: 5,
+    color: '#eee'
   },
 
   todoContainer: {
     borderWidth: 0.5,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#3E4A2B",
     borderRadius: 16,
     marginRight: 10,
     marginLeft: 10,
@@ -63,16 +64,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
 
-
   headerContainer: {
    justifyContent: 'center',
    alignItems: 'center',
    margin: 20
-
   },
 
   header: {
     fontSize: 25,
+    color: '#eee'
   },
 
   editButton: {

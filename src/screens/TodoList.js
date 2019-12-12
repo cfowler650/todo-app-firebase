@@ -102,13 +102,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#cce5c9'
+    backgroundColor: '#202616'
   },
 
   noTodos: {
     textAlign: 'center',
     fontSize: 28,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#eee'
   },
 
   modal: {
