@@ -50,7 +50,7 @@ export default class AddTodo extends Component {
         <TextInput selectionColor={'green'} style={styles.todoInput} onChange={this.handleChange} value={this.state.name}/>
         <TouchableHighlight
           style={styles.button}
-          underlayColor="#7EB02C"
+          underlayColor="#313B22"
           onPress={this.handleSubmit}
         >
           <Text style={styles.buttonText}>SAVE</Text>

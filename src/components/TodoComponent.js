@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ButtonProperties } from 'react-native';
 import { Button } from 'react-native-elements';
 
 export default class TodoComponent extends Component {
@@ -23,8 +23,9 @@ export default class TodoComponent extends Component {
             <View style={styles.todoContainer} key={index}>
               <Text style={styles.todoText}>{todo.name}</Text>
               <View style={styles.buttonGroup}>
-                <Button buttonStyle={styles.editButton} type="solid" title="Edit" onPress={this._handleEdit.bind(this, todo)} />
-                <Button buttonStyle={styles.deleteButton} type="solid" title="Delete" onPress={this._handleDelete.bind(this, todo)} />
+
+                <Button buttonStyle={styles.editButton} title="Edit" onPress={this._handleEdit.bind(this, todo)} />
+                <Button buttonStyle={styles.deleteButton}  title="Delete" onPress={this._handleDelete.bind(this, todo)} />
               </View>
             </View>
           );
@@ -78,13 +79,15 @@ const styles = StyleSheet.create({
   editButton: {
     marginTop: 10,
     marginRight: 5,
-    width: 150
+    width: 150,
+    backgroundColor: '#697D48'
   },
 
   deleteButton: {
     marginTop: 10,
     marginLeft: 5,
     width: 150,
+    backgroundColor: '#697D48'
 
   }
 

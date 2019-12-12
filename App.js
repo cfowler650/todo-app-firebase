@@ -59,7 +59,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#202616',
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#7EB02C',
+    backgroundColor: '#3E4A2B',
     padding: 50,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -80,6 +79,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 25,
     marginBottom: 30,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: "#eee"
   }
 });
