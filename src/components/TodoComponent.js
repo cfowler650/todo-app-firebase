@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
-import { db } from '../config';
-
 export default class TodoComponent extends Component {
 
   _handleDelete(todo) {

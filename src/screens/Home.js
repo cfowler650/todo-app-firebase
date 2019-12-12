@@ -11,7 +11,7 @@ export default class Home extends Component {
         </View>
 
         <Button
-          title="New Todo"
+          title="Add Todo"
           type="solid"
           buttonStyle={styles.button}
           onPress={() => this.props.navigation.navigate('AddTodo')}
@@ -34,29 +34,31 @@ const styles = StyleSheet.create({
 
   headerContainer: {
     margin: 20,
-    backgroundColor: "#cce5c9",
+
   },
 
   header: {
     fontSize: 25,
     textAlign: 'center',
+    color: '#eee'
   },
 
   container: {
     flex: 1,
-    backgroundColor: "#cce5c9",
+    backgroundColor: '#202616',
     justifyContent: "flex-start",
     paddingLeft: 20,
     paddingRight: 20
   },
 
   button: {
-    backgroundColor: 'teal',
+    backgroundColor: '#3E4A2B',
     marginRight: 10,
     marginLeft: 10,
     marginTop: 10,
     marginBottom: 0,
-    borderRadius: 8
+    borderRadius: 8,
+
   }
 
 })

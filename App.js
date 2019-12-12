@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Fragment, StyleSheet, StatusBar } from 'react-native';
+import { View, Fragment, Text, StyleSheet, StatusBar } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import Home from './src/screens/Home';
@@ -43,8 +43,12 @@ export default class App extends Component {
           <AppContainer style={{backgroundColor: '#f23657'}}/>
         ) : (
             <View style={styles.container}>
+              <View style={styles.headerContainer}>
+                 <Text style={styles.header}>Todo App </Text>
+                <FBLoginButton authHandler={this.authHandler} />
+              </View>
               <StatusBar barStyle="light-content" />
-              <FBLoginButton authHandler={this.authHandler} />
+
             </View>
           )}
        </>
@@ -55,9 +59,27 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    // flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f23657',
+    backgroundColor: '#202616',
   },
+
+  headerContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#7EB02C',
+    padding: 50,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+
+  header: {
+    fontSize: 25,
+    marginBottom: 30,
+    textAlign: 'center'
+  }
 });

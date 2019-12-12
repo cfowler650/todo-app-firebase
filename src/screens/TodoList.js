@@ -3,11 +3,10 @@ import {View, Text, StyleSheet } from 'react-native';
 import TodoComponent from '../components/TodoComponent';
 import DialogInput from 'react-native-dialog-input';
 
-
 import { db } from '../config';
-let todosRef = db.ref('todos/');
-
+let todosRef = db.collection('todos');
 let match = '';
+
 export default class TodoList extends Component {
   state = {
     todos: [],
@@ -18,32 +17,50 @@ export default class TodoList extends Component {
     this.setState({ modalVisible: visible });
   }
 
+  refreshList() {
+    let allTodos = [];
+
+    todosRef.get()
+      .then(snapshot => {
+        snapshot.forEach((doc) => {
+          allTodos.push(doc.data())
+        });
+        this.setState({
+          todos: allTodos
+        });
+      })
+      .catch(err => {
+        console.log('Error getting documents', err);
+      });
+  }
+
   componentDidMount() {
-    todosRef.on('value', snapshot => {
-      let data = snapshot.val();
-      let todos = Object.values(data);
-      this.setState( { todos } );
-    });
+    let allTodos = [];
+
+    todosRef.get()
+      .then(snapshot => {
+        snapshot.forEach((doc) => {
+          allTodos.push(doc.data())
+        });
+        this.setState({
+          todos: allTodos
+        });
+      })
+      .catch(err => {
+        console.log('Error getting documents', err);
+      });
   }
 
   delete(todo) {
+    let deleteDoc = todosRef.doc(todo.id).delete();
+
     this.setState(prevState => ({
       todos: prevState.todos.filter(el => el != todo)
-    }));
-    // let matched = todosRef.find(el => el.id === id)
-
-    // todosRef.removeValue((id)=>{
-    //   {id}
-    // });
-
-    // let name = 'doodoo'
-
-    // let test = todosRef.update(id
-    // )
-    // alert(test)
+    }))
   }
 
   edit(todo) {
+    console.log(todo)
     match = todo
     this.showDialog(true)
   };
@@ -53,10 +70,11 @@ export default class TodoList extends Component {
   }
 
   sendInput(inputText) {
-    let index = this.state.todos.findIndex(x => x == match);
-    this.state.todos[index].name = inputText;
-    this.forceUpdate();
+    let updateDoc = todosRef.doc(match.id).update({
+      name: inputText
+    })
     this.showDialog(false);
+    this.refreshList();
   }
 
   render() {

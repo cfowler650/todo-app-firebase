@@ -3,25 +3,15 @@ import { View, Text, TouchableHighlight, StyleSheet, TextInput, Alert } from 're
 
 import { db } from '../config';
 
-let todosRef = db.ref('/todos');
-
-getTodosArrayLength = () => {
-  let thisLength = 0
-  todosRef.on('value', snapshot => {
-      let data = snapshot.val();
-      let todos = Object.values(data);
-      let length = todos.length;
-      thisLength = length;
-    });
-
-  return thisLength;
-}
+let todosRef = db.collection('todos');
+let generateRandomIDString = () => Math.floor(Math.random() * (1000000 - 100000 + 1) + 100000).toString();
 
 let addTodo = (todo) => {
-  todosRef.push( {
+  let randomID = generateRandomIDString();
+  todosRef.doc(randomID).set({
+    id: randomID,
     name: todo
   });
-  console.log(`Added Todo to DB => { name: ${todo} }`);
 };
 
 export default class AddTodo extends Component {
@@ -31,6 +21,7 @@ export default class AddTodo extends Component {
   };
 
   handleChange = e => {
+    e.preventDefault();
     this.setState({
       name: e.nativeEvent.text
     });
@@ -39,13 +30,14 @@ export default class AddTodo extends Component {
   handleSubmit = () => {
     let notEmpty = this.state.name;
 
-
     if (notEmpty) {
         addTodo(this.state.name);
-        Alert.alert('Todo saved successfully');
+        this.setState({ name: '' });
+        Alert.alert('Todo saved successfully!');
     } else {
         Alert.alert('Todo can not be empty!');
     }
+
 
   };
 
@@ -53,15 +45,15 @@ export default class AddTodo extends Component {
     return (
       <View style={styles.main}>
         <View style={styles.titleContainer}>
-            <Text style={styles.title}>Add Todo</Text>
+            <Text style={styles.title}>New Todo</Text>
         </View>
-        <TextInput style={styles.todoInput} onChange={this.handleChange} />
+        <TextInput selectionColor={'green'} style={styles.todoInput} onChange={this.handleChange} value={this.state.name}/>
         <TouchableHighlight
           style={styles.button}
-          underlayColor="white"
+          underlayColor="#7EB02C"
           onPress={this.handleSubmit}
         >
-          <Text style={styles.buttonText}>Add</Text>
+          <Text style={styles.buttonText}>SAVE</Text>
         </TouchableHighlight>
       </View>
     );
@@ -75,11 +67,13 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: '#cce5c9'
+    // backgroundColor: 'rgb(38, 44, 45)'
+    backgroundColor: '#202616'
+
   },
   title: {
-
-    fontSize: 25,
+    color: "#EEE",
+    fontSize: 24,
     textAlign: 'center'
   },
 
@@ -88,25 +82,30 @@ const styles = StyleSheet.create({
   },
 
   todoInput: {
-    height: 50,
-    padding: 4,
+    height: 40,
+    paddingLeft: 10,
     marginRight: 5,
+    marginBottom: 10,
     fontSize: 23,
-    borderWidth: 1,
-    borderColor: 'grey',
+    borderBottomWidth: 1,
+    borderColor: '#3E4A2B',
     borderRadius: 8,
-    color: 'black'
+    color: '#9FFF00',
+
   },
+
   buttonText: {
     fontSize: 18,
-    color: '#111',
-    alignSelf: 'center'
+    color: '#EEE',
+    alignSelf: 'center',
+    borderColor: '#3E4A2B'
   },
+
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'white',
-    borderColor: 'white',
+    borderColor: "#3E4A2B",
+    backgroundColor: '#3E4A2B',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
