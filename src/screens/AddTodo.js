@@ -3,19 +3,34 @@ import { View, Text, TouchableHighlight, StyleSheet, TextInput, Alert } from 're
 
 import { db } from '../config';
 
-let addTodo = todo => {
-  db.ref('/todos').push({
+let todosRef = db.ref('/todos');
+
+getTodosArrayLength = () => {
+  let thisLength = 0
+  todosRef.on('value', snapshot => {
+      let data = snapshot.val();
+      let todos = Object.values(data);
+      let length = todos.length;
+      thisLength = length;
+    });
+
+  return thisLength;
+}
+
+let addTodo = (todo) => {
+  todosRef.push( {
     name: todo
   });
+  console.log(`Added Todo to DB => { name: ${todo} }`);
 };
 
 export default class AddTodo extends Component {
   state = {
-    name: ''
+    name: '',
+    todos: []
   };
 
   handleChange = e => {
-    console.log(e.nativeEvent.text);
     this.setState({
       name: e.nativeEvent.text
     });
@@ -23,6 +38,7 @@ export default class AddTodo extends Component {
 
   handleSubmit = () => {
     let notEmpty = this.state.name;
+
 
     if (notEmpty) {
         addTodo(this.state.name);
@@ -56,7 +72,7 @@ const styles = StyleSheet.create({
     padding: 30,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: '#6565fc'
+    backgroundColor: 'darkgrey'
   },
   title: {
     marginBottom: 20,

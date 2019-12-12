@@ -17,8 +17,8 @@ export default class FBLoginButton extends Component {
                 alert("Login was cancelled");
                 this.props.authHandler(false);
               } else {
-                alert("Login was successful with permissions: " + result.grantedPermissions)
                 this.props.authHandler(true);
+                alert("Login successful!");
               }
             }
           }
@@ -29,3 +29,5 @@ export default class FBLoginButton extends Component {
 };
 
 module.exports = FBLoginButton;
+
+

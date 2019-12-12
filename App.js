@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Fragment, StyleSheet } from 'react-native';
+import { View, Fragment, StyleSheet, StatusBar } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import Home from './src/screens/Home';
@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'Home'
-  }
+  },
 );
 
 const AppContainer = createAppContainer(AppNavigator);
@@ -28,9 +28,6 @@ export default class App extends Component {
     loggedIn: false
   }
 
-  componentDidMount() {
-    console.log('Logged in?', this.state.loggedIn);
-  }
 
   authHandler = (authBooleanValue) => {
     this.setState({
@@ -41,10 +38,12 @@ export default class App extends Component {
   render() {
     return (
       <>
+
         {this.state.loggedIn ? (
-          <AppContainer />
+          <AppContainer style={{backgroundColor: '#f23657'}}/>
         ) : (
             <View style={styles.container}>
+              <StatusBar barStyle="light-content" />
               <FBLoginButton authHandler={this.authHandler} />
             </View>
           )}
@@ -59,6 +58,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#f23657',
   },
 });
